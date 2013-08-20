@@ -18,9 +18,21 @@ def testXKCD():
     try:
         f = urllib2.urlopen(r"http://xkcd.com/{0}/".format(test))
         webbrowser.open(f.geturl())
-        print "New XKCD"
+        print "New xkcd"
         print ""
         incDict[r"http://xkcd.com/"] = 1
+    except urllib2.HTTPError:
+        pass
+
+
+def testWhatIf():
+    test = int(siteDict[r"http://what-if.xkcd.com/"]) + 1
+    try:
+        f = urllib2.urlopen(r"http://what-if.xkcd.com/{0}/".format(test))
+        webbrowser.open(f.geturl())
+        print "New What If xkcd"
+        print ""
+        incDict[r"http://what-if.xkcd.com/"] = 1
     except urllib2.HTTPError:
         pass
 
@@ -88,7 +100,7 @@ def testWebDip():
     notices = soup.find("div", {"class": "gamelistings-tabs"})
     if notices is None:
         return
-    elif notices.find("img", {"src": "images/icons/alert.png"})):
+    elif notices.find("img", {"src": "images/icons/alert.png"}):
         webbrowser.open(br.geturl())
         print "It's your turn in WebDiplomacy"
         print ""
@@ -113,6 +125,7 @@ if __name__ == "__main__":
     #Tests the different websites, comment out the ones you don't want
     print ""
     testXKCD()    # xkcd (webcomic)
+    testWhatIf()  # What If xkcd (science)
     testJL8()     # Justice League 8 (webcomic)
     testHxH()     # Hunter x Hunter (anime)
     testWebDip()  # webDiplomacy (board game)
