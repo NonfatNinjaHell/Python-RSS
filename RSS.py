@@ -97,6 +97,7 @@ def testWebDip():
         print "You have mail in WebDiplomacy"
         print ""
 
+
 if __name__ == "__main__":
     #Creates the necessary dictionaries
     with open(os.getcwd() + "\RSSsites.txt") as f:
