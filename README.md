@@ -5,7 +5,7 @@ A Web scraper to check different sites for new activity.
 
 Dependencies
 ------------
-* Python 2.7
+* Python 2.7.x
 * mechanize (http://wwwsearch.sourceforge.net/mechanize/)
 * RSSsites.txt
 
