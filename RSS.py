@@ -88,8 +88,11 @@ def testWebDip():
     notices = soup.find("div", {"class": "gamelistings-tabs"})
     if notices is None:
         return
-    if (notices.find("img", {"src": "images/icons/mail.png"}) or
-       notices.find("img", {"src": "images/icons/alert.png"})):
+    elif notices.find("img", {"src": "images/icons/alert.png"})):
+        webbrowser.open(br.geturl())
+        print "It's your turn in WebDiplomacy"
+        print ""
+    elif notices.find("img", {"src": "images/icons/mail.png"}):
         webbrowser.open(br.geturl())
         print "You have mail in WebDiplomacy"
         print ""
