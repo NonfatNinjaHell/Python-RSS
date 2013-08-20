@@ -51,12 +51,47 @@ def testHxH():
         pass
 
 
+def testToG():
+    testv, testc = map(int, siteDict[(r"http://www.batoto.net/read/"
+                                      "_/188265/tower-of-god")].split())
+    f = urllib2.urlopen((r"http://www.batoto.net/read/"
+                         "_/188265/tower-of-god_v{0}_ch{1}_by_the-company")
+                        .format(testv, testc))
+    g = urllib2.urlopen((r"http://www.batoto.net/read/"
+                         "_/188265/tower-of-god_v{0}_ch{1}_by_the-company")
+                        .format(testv, testc + 1))
+    h = urllib2.urlopen((r"http://www.batoto.net/read/"
+                         "_/188265/tower-of-god_v{0}_ch{1}_by_the-company")
+                        .format(testv+1, 1))
+    fsoup = BeautifulSoup("".join(f))
+    gsoup = BeautifulSoup("".join(g))
+    hsoup = BeautifulSoup("".join(h))
+    print fsoup.find("title")
+    print gsoup.find("title")
+    print hsoup.find("title")
+    if hsoup.find("title") != gsoup.find("title"):
+        webbrowser.open(h.geturl())
+        print "New Tower of God"
+        print ""
+        incDict[(r"http://www.batoto.net/read/"
+                 "_/188265/tower-of-god")] = (1, -1*testc + 1)
+    elif gsoup.find("title") != fsoup.find("title"):
+        webbrowser.open(g.geturl())
+        print "New Tower of God"
+        print ""
+        incDict[(r"http://www.batoto.net/read/"
+                 "_/188265/tower-of-god")] = (0, 1)
+    else:
+        incDict[(r"http://www.batoto.net/read/"
+                 "_/188265/tower-of-god")] = (0, 0)
+
+
 def testWebDip():
     br = Browser()
     br.open("http://webdiplomacy.net/logon.php")
     br.select_form(nr=0)
-    br['loginuser'] = "NonfatNinjaHell"
-    br['loginpass'] = "Bibliophile"
+    br['loginuser'] = "USERNAMEHERE"
+    br['loginpass'] = "PASSWORDHERE"
     br.submit()
     br.open("http://webdiplomacy.net/index.php")
     resp = br.reload()
@@ -72,7 +107,7 @@ def testWebDip():
 
 if __name__ == "__main__":
     #Creates the necessary dictionaries
-    with open((os.getcwd() + "\RSSsites.txt") as f:
+    with open(os.getcwd() + "\RSSsites.txt") as f:
         siteDict = {}
         for i, line in enumerate(f.readlines()):
             if i % 2 == 0:
@@ -82,15 +117,24 @@ if __name__ == "__main__":
         del i, line, temp
     incDict = {k: 0 for k in siteDict.keys()}
 
-    #Tests the different websites
+    #Tests the different websites, comment out those you don't want to check
     print ""
     testXKCD()
     testJL8()
     testHxH()
     testWebDip()
+    testToG()
 
     #Creates the new text file
     with open(os.getcwd() + "\RSSsites.txt", "w") as f:
         for k, v in siteDict.iteritems():
             f.write(k + "\n")
-            f.write(str(int(v) + incDict[k]) + "\n")
+            try:
+                f.write(str(int(v) + incDict[k]) + "\n")
+            except ValueError:
+                try:
+                    v = map(int, v.split())
+                    f.write("{0} {1}\n".format(v[0] + incDict[k][0],
+                                               v[1] + incDict[k][1]))
+                except TypeError:
+                    f.write(v + "\n")
