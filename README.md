@@ -16,3 +16,10 @@ Currently checks
 * Justice League 8
 * Hunter x Hunter
 * WebDiplomacy
+
+To Run on Startup
+-----------------
+
+Windows:
+* Create a Shortcut
+* Move Shortcut to C:\Users\USERNAMEHERE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
