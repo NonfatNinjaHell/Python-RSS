@@ -13,6 +13,7 @@ Currently checks
 ----------------
 
 * xkcd
+* What If xkcd
 * Justice League 8
 * Hunter x Hunter
 * WebDiplomacy
