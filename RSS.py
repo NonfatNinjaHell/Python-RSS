@@ -10,6 +10,7 @@ import webbrowser
 from mechanize import Browser
 from BeautifulSoup import BeautifulSoup
 
+
 def testXKCD():
     test = int(siteDict[r"http://xkcd.com/"]) + 1
     try:
@@ -64,7 +65,7 @@ def testWebDip():
         return
     if notices.find("img", {"src": "images/icons/mail.png"}):
         webbrowser.open(br.geturl())
-        print "Your move in WebDiplomacy"
+        print "You have mail in WebDiplomacy"
         print ""
 
 if __name__ == "__main__":
