@@ -5,10 +5,12 @@ Created on Thu Aug 15 21:16:19 2013
 @author: Jonathan
 """
 
+import os
 import urllib2
 import webbrowser
-from mechanize import Browser
 from BeautifulSoup import BeautifulSoup
+
+from mechanize import Browser
 
 
 def testXKCD():
@@ -53,8 +55,8 @@ def testWebDip():
     br = Browser()
     br.open("http://webdiplomacy.net/logon.php")
     br.select_form(nr=0)
-    br['loginuser'] = "USERNAME HERE"
-    br['loginpass'] = "PASSWORD HERE"
+    br['loginuser'] = "NonfatNinjaHell"
+    br['loginpass'] = "Bibliophile"
     br.submit()
     br.open("http://webdiplomacy.net/index.php")
     resp = br.reload()
@@ -70,7 +72,7 @@ def testWebDip():
 
 if __name__ == "__main__":
     #Creates the necessary dictionaries
-    with open("C:\Users\Jonathan\Documents\RSSsites.txt") as f:
+    with open((os.getcwd() + "\RSSsites.txt") as f:
         siteDict = {}
         for i, line in enumerate(f.readlines()):
             if i % 2 == 0:
@@ -88,7 +90,7 @@ if __name__ == "__main__":
     testWebDip()
 
     #Creates the new text file
-    with open("C:\Users\Jonathan\Documents\RSSsites.txt", "w") as f:
+    with open(os.getcwd() + "\RSSsites.txt", "w") as f:
         for k, v in siteDict.iteritems():
             f.write(k + "\n")
             f.write(str(int(v) + incDict[k]) + "\n")
