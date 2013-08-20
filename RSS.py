@@ -126,7 +126,7 @@ if __name__ == "__main__":
             except ValueError:
                 try:
                     v = map(int, v.split())
-                    f.write("{0} {1}\n".format(v[0] + incDict[k][0],
-                                               v[1] + incDict[k][1]))
+                    f.write("{0} {1}\n".format(str(v[0] + incDict[k][0]),
+                                               str(v[1] + incDict[k][1])))
                 except TypeError:
-                    f.write(v + "\n")
+                    f.write("{0} {1}\n".format(str(v[0]), str(v[1])))
