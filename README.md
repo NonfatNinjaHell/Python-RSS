@@ -16,6 +16,7 @@ Currently checks
 * Justice League 8
 * Hunter x Hunter
 * WebDiplomacy
+* Tower of God
 
 To Run on Startup
 -----------------
