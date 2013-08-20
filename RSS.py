@@ -105,13 +105,13 @@ if __name__ == "__main__":
         del i, line, temp
     incDict = {k: 0 for k in siteDict.keys()}
 
-    #Tests the different websites
+    #Tests the different websites, comment out the ones you don't want
     print ""
-    testXKCD()
-    testJL8()
-    testHxH()
-    testWebDip()
-    testToG()
+    testXKCD()    # xkcd (webcomic)
+    testJL8()     # Justice League 8 (webcomic)
+    testHxH()     # Hunter x Hunter (anime)
+    testWebDip()  # webDiplomacy (board game)
+    testToG()     # Tower of God (manga)
 
     #Creates the new text file
     with open(os.getcwd() + "\RSSsites.txt", "w") as f:
