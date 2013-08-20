@@ -2,7 +2,7 @@
 """
 Created on Thu Aug 15 21:16:19 2013
 
-@author: Jonathan
+@author: Jonathan Finnell
 """
 
 import os
@@ -52,35 +52,23 @@ def testHxH():
 
 
 def testToG():
-    testv, testc = map(int, siteDict[(r"http://www.batoto.net/read/"
-                                      "_/188265/tower-of-god")].split())
-    f = urllib2.urlopen((r"http://www.batoto.net/read/"
-                         "_/188265/tower-of-god_v{0}_ch{1}_by_the-company")
-                        .format(testv, testc))
-    g = urllib2.urlopen((r"http://www.batoto.net/read/"
-                         "_/188265/tower-of-god_v{0}_ch{1}_by_the-company")
-                        .format(testv, testc + 1))
-    h = urllib2.urlopen((r"http://www.batoto.net/read/"
-                         "_/188265/tower-of-god_v{0}_ch{1}_by_the-company")
-                        .format(testv+1, 1))
-    fsoup = BeautifulSoup("".join(f))
-    gsoup = BeautifulSoup("".join(g))
-    hsoup = BeautifulSoup("".join(h))
-    print fsoup.find("title")
-    print gsoup.find("title")
-    print hsoup.find("title")
-    if hsoup.find("title") != gsoup.find("title"):
-        webbrowser.open(h.geturl())
+    k = r"http://www.batoto.net/read/_/188265/tower-of-god"
+    testv, testc = map(int, siteDict[k].split())
+    br = Browser()
+    br.open((r"http://www.batoto.net/read/_/188265/"
+             "tower-of-god_v1_ch1_by_the-company"))
+    resp = br.reload()
+    html = resp.read()
+    soup = BeautifulSoup("".join(html))
+    title = str(soup.find("title")).split()[4:8]
+    if title != ["vol", str(testv), "ch", str(testc)]:
+        webbrowser.open((r"http://www.batoto.net/read/_/188265/"
+                         "tower-of-god_v1_ch1_by_the-company"))
         print "New Tower of God"
         print ""
         incDict[(r"http://www.batoto.net/read/"
-                 "_/188265/tower-of-god")] = (1, -1*testc + 1)
-    elif gsoup.find("title") != fsoup.find("title"):
-        webbrowser.open(g.geturl())
-        print "New Tower of God"
-        print ""
-        incDict[(r"http://www.batoto.net/read/"
-                 "_/188265/tower-of-god")] = (0, 1)
+                 "_/188265/tower-of-god")] = (int(title[1])-testv,
+                                              int(title[3])-testc)
     else:
         incDict[(r"http://www.batoto.net/read/"
                  "_/188265/tower-of-god")] = (0, 0)
@@ -117,7 +105,7 @@ if __name__ == "__main__":
         del i, line, temp
     incDict = {k: 0 for k in siteDict.keys()}
 
-    #Tests the different websites, comment out those you don't want to check
+    #Tests the different websites
     print ""
     testXKCD()
     testJL8()
